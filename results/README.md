@@ -23,7 +23,28 @@ Training conditions of experiments are indicated below
 
 ## 2. Attention Map Evolving Visualization
 
+Each test image index is 1154, 2143, 2767 respectively and each column represents epoch of pretraining in order of 1, 10, 20, 30
 
+<p align="center">
+  <img src="./attention_maps/1154_1.png" width="22%">
+  <img src="./attention_maps/1154_10.png" width="22%">
+  <img src="./attention_maps/1154_20.png" width="22%">
+  <img src="./attention_maps/1154_30.png" width="22%">
+</p>
+
+<p align="center">
+  <img src="./attention_maps/2143_1.png" width="22%">
+  <img src="./attention_maps/2143_10.png" width="22%">
+  <img src="./attention_maps/2143_20.png" width="22%">
+  <img src="./attention_maps/2143_30.png" width="22%">
+</p>
+
+<p align="center">
+  <img src="./attention_maps/2767_1.png" width="22%">
+  <img src="./attention_maps/2767_10.png" width="22%">
+  <img src="./attention_maps/2767_20.png" width="22%">
+  <img src="./attention_maps/2767_30.png" width="22%">
+</p>
 
 ### Observation
 
