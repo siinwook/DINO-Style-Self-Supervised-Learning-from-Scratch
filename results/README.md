@@ -10,8 +10,8 @@ Training conditions of experiments are indicated below
 
 | Dataset | k-NN Probe | Linear Probe | Fine Tune | Random Init |
 | ----- | ----- | ----- | ----- | ----- |
-| STL-10 | 45.2% | 47.7% | 60.0% | 51.8% |
 | Mini ImageNet | 19.2% | 24.0% | 43.5% | 36.9% |
+| STL-10 | 45.2% | 47.7% | 60.0% | 51.8% |
 
 ### Interpretation
 
@@ -23,15 +23,15 @@ Training conditions of experiments are indicated below
 
 ## 2. Attention Map Evolving Visualization
 
+
+
 ### Observation
 
-- Models gain higher test accuracy in order of Teacher(ResNet), DeiT, DeiT with DIST, DeiT with CLS, and ViT.
-- DeiT distilled by ConvNet teacher gains slightly more test accuracy than vanila ViT. 
+-
 
 ### Interpretation
 
-- Inductive bias distillation from ConvNet to ViT helps ViT to get higher performance.
-- Distillation token trained with ConvNet label gives more useful learning signal than classification token trained with ground truth.
+- 
 
 ---
 
@@ -42,15 +42,9 @@ Training conditions of experiments are indicated below
 | Enabled |        45.2% |
 | Disabled |        44.4% |
 
-### Observation
-
-- Models gain higher test accuracy in order of Teacher(ResNet), DeiT, DeiT with DIST, DeiT with CLS, and ViT.
-- DeiT distilled by ConvNet teacher gains slightly more test accuracy than vanila ViT. 
-
 ### Interpretation
 
-- Inductive bias distillation from ConvNet to ViT helps ViT to get higher performance.
-- Distillation token trained with ConvNet label gives more useful learning signal than classification token trained with ground truth.
+- Multi-crop encourages model to learn 'local to global' correspondences and it leads to retain more generalized visual features.
 
 ---
 
@@ -65,6 +59,7 @@ Training conditions of experiments are indicated below
 | Optimizer | AdamW |
 | Learning rate scheduler | Linear warmup + Cosine annealing |
 | Learning rate | Linear warmup to 0.0005(1-3 epoch), then cosine annealing to 0.00001(4-30 epoch) |
+| # of teachers/students | teachers: 2  students: 2 |
 | Teacher temperature | 0.04 |
 | Student temperature | 0.1 |
 | Teacher momentum | 0.996 |
