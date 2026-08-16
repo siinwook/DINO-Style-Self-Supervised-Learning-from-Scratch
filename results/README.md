@@ -23,6 +23,8 @@ Training conditions of experiments are indicated below
 
 ## 2. Attention Map Evolving Visualization
 
+Segmentation masks are obtained by thresholding the self-attention map of most well-segmented head to keep 60% of the mass. 
+
 Each test image index is 1154, 2143, 2767 respectively and each column represents epoch of pretraining in order of 1, 10, 20, 30
 
 <p align="center">
@@ -48,10 +50,12 @@ Each test image index is 1154, 2143, 2767 respectively and each column represent
 
 ### Observation
 
--
+- Masks that were evenly distributed in the first epoch start to concentrate on the objects as the epochs increase.
+- In respect to the last row, the masks are on the parts except the airplane in the first epoch, and on the airplane in the other epochs.
 
 ### Interpretation
 
+- In the first epoch, most patches were attended uniformly, so there are a lot of patches, but as training goes on, the number of patches decreases and they gather on the objects.
 - 
 
 ---
