@@ -6,38 +6,41 @@ Training conditions of experiments are indicated below
 
 ---
 
-## 1. Adaption to Varying Data Size
+## 1. DINO Representation Evaluation
 
-| Train Accuracy | Train Loss |
-| :---: | :---: |
-| ![vit_res_train_acc.png](./vit_res_train_acc.png) | ![vit_res_train_loss.png](./vit_res_train_loss.png) |
-
-| Increased Accuracy Gap| 
-| :---: |
-| ![vit_res_train_acc_gap.png](./vit_res_train_acc_gap.png) |
-
-### Observation
-
-- ResNet gains more absolute train accuracy and converges faster in any data sizes, ResNet trained with smallest data size wins ViT trained with biggest data size.
-- As the data size increases, ViT shows much train accuracy growth rate(20.8%p+ vs 11.2%p+). 
+| Dataset | k-NN Probe | Linear Probe | Fine Tune | Random Init |
+| ----- | ----- | ----- | ----- | ----- |
+| STL-10 | 45.2% | 47.7% | 60.0% | 51.8% |
+| Mini ImageNet | 19.2% | 24.0% | 43.5% | 36.9% |
 
 ### Interpretation
 
-- Although the number of trainable parameters is similiar(ResNet: 1.14MB vs ViT: 1.19MB), ViT trained with biggest data size is inferior to ResNet with smallest data size due to the lack of inductive bias.
-- As ViT gains more train accuracy growth rate when data size increases, ViT requires more data to learn visual priors that CNNs already encode through inductive biases.
+- Considering that the random shot accuracy of Mini ImageNet is 1%, DINO pretrained features can classify a significant number of unseen images only with knn probe and linear probe.
+- DINO pretraining learns well generalized features that can be easily fine-tuned in transfer learning of unseen images.
+- For datasets of the same category, DINO self-supervised features adopted to straightforward probing achieves comparable performance to supervised learning features(45.2%, 47.7% vs 51.8%).
 
 ---
 
-## 2. Knowledge Distillation
+## 2. Attention Map Evolving Visualization
 
-| Model | Test Accuracy |
+### Observation
+
+- Models gain higher test accuracy in order of Teacher(ResNet), DeiT, DeiT with DIST, DeiT with CLS, and ViT.
+- DeiT distilled by ConvNet teacher gains slightly more test accuracy than vanila ViT. 
+
+### Interpretation
+
+- Inductive bias distillation from ConvNet to ViT helps ViT to get higher performance.
+- Distillation token trained with ConvNet label gives more useful learning signal than classification token trained with ground truth.
+
+---
+
+## 3. Multi-Crop Ablation
+
+| Multi-Crop | k-NN Probe |
 | ----- | ------------: |
-| Teacher(ResNet)  |        91.46% |
-| DeiT  |        80.34% |
-| DeiT(only DIST token)  |        80.33% |
-| DeiT(only CLS token)  |        80.24% |
-| ViT   |        80.13% |
-
+| Enabled |        45.2% |
+| Disabled |        44.4% |
 
 ### Observation
 
@@ -69,7 +72,7 @@ Training conditions of experiments are indicated below
 | Output dimensionality K | 150 |
 | Batch size | 192 |
 | Epochs | 30 |
-| Data augmentation | Random crop, Horizontal flip, Color jitter, Gray scale, Normalize | Random crop, Horizontal flip, Color jitter, Gray scale, Normalize |
+| Data augmentation | RandomResized crop, Horizontal flip, Color jitter|
 | Weight decay | 0.001 |
 | Device | cuda |
 
@@ -80,6 +83,7 @@ Training conditions of experiments are indicated below
 | Dataset | STL-10 (Unlabeled) / Mini ImageNet |
 | Learning rate scheduler | Linear warmup + Cosine annealing |
 | Learning rate | Linear warmup to 0.0005(1-4 epoch), then cosine annealing to 0.00001(5-40 epoch) |
+| Data augmentation | Resize |
 | Weight decay | 0 |
 
 **Fine Tuning**
@@ -89,3 +93,4 @@ Training conditions of experiments are indicated below
 | Dataset | STL-10 (Unlabeled) / Mini ImageNet |
 | Learning rate scheduler | Linear warmup + Cosine annealing |
 | Learning rate | Linear warmup to 0.0005(1-4 epoch), then cosine annealing to 0.00001(5-40 epoch) |
+| Data augmentation | Resize |
