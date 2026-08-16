@@ -31,6 +31,12 @@ It also visualizes the evolving attention map of CLS token in last encoder layer
 
 ### Experiment 2: Attention Map Evolving Visualization
 
+<p align="center">
+  <img src="results/attention_maps/1154_1.png" width="22%">
+  <img src="results/attention_maps/1154_10.png" width="22%">
+  <img src="results/attention_maps/1154_20.png" width="22%">
+  <img src="results/attention_maps/1154_30.png" width="22%">
+</p>
 
 ### Experiment 3: Multi-Crop Ablation
 
