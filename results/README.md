@@ -8,10 +8,10 @@ Training conditions of experiments are indicated below
 
 ## 1. DINO Representation Evaluation
 
-| Dataset | k-NN Probe | Linear Probe | Fine Tune | Random Init |
-| ----- | ----- | ----- | ----- | ----- |
-| Mini ImageNet | 19.2% | 24.0% | 43.5% | 36.9% |
-| STL-10 | 45.2% | 47.7% | 60.0% | 51.8% |
+| Dataset | Random Shot | k-NN Probe | Linear Probe | Fine Tune | Random Init |
+| ----- | ----- | ----- | ----- | ----- | ----- |
+| Mini ImageNet | 1.0% | 19.2% | 24.0% | 43.5% | 36.9% |
+| STL-10 | 10.0% | 45.2% | 47.7% | 60.0% | 51.8% |
 
 ### Interpretation
 
@@ -56,7 +56,7 @@ Each test image index is 1154, 2143, 2767 respectively and each column represent
 ### Interpretation
 
 - In the first epoch, most patches were attended uniformly, so there are a lot of patches, but as training goes on, the number of patches decreases and they gather on the objects.
-- 
+- DINO pretrained features represent the overall outlayer for objects in an image.
 
 ---
 
