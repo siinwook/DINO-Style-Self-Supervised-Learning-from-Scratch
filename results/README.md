@@ -8,22 +8,22 @@ Training conditions of experiments are indicated below
 
 ## 1. DINO Representation Evaluation
 
-| Dataset | Random Shot | k-NN Probe | Linear Probe | Fine Tune | Random Init |
+| Dataset | Random Chance | k-NN Probe | Linear Probe | Fine Tune | Random Init |
 | ----- | ----- | ----- | ----- | ----- | ----- |
 | Mini ImageNet | 1.0% | 19.2% | 24.0% | 43.5% | 36.9% |
 | STL-10 | 10.0% | 45.2% | 47.7% | 60.0% | 51.8% |
 
 ### Interpretation
 
-- Considering that the random shot accuracy of Mini ImageNet is 1%, DINO pretrained features can classify a significant number of unseen images only with knn probe and linear probe.
-- DINO pretraining learns well generalized features that can be easily fine-tuned in transfer learning of unseen images.
-- For datasets of the same category, DINO self-supervised features adopted to straightforward probing achieves comparable performance to supervised learning features(45.2%, 47.7% vs 51.8%).
+- Considering that the random shot accuracy of Mini ImageNet is 1%, DINO-pretrained frozen features achieve substantially higher accuracy than random chance with both k-NN and linear probing.
+- The improvement after fine-tuning on Mini-ImageNet suggests that DINO pretraining learns well generalized features that can be easily fine-tuned in transfer learning of unseen images.
+- On STL-10, frozen DINO self-supervised backbone features adopted to straightforward k-NN and linear probing achieves comparable performance to fully supervised finetuned features(45.2%, 47.7% vs 51.8%).
 
 ---
 
 ## 2. Attention Map Evolving Visualization
 
-Segmentation masks are obtained by thresholding the self-attention map of most well-segmented head to keep 60% of the mass. 
+Segmentation masks are obtained by thresholding the self-attention map of most well-segmented head of each image to keep 60% of the mass. 
 
 Each test image index is 1154, 2143, 2767 respectively and each column represents epoch of pretraining in order of 1, 10, 20, 30
 
@@ -56,7 +56,7 @@ Each test image index is 1154, 2143, 2767 respectively and each column represent
 ### Interpretation
 
 - In the first epoch, most patches were attended uniformly, so there are a lot of patches, but as training goes on, the number of patches decreases and they gather on the objects.
-- DINO pretrained features represent the overall outlayer for objects in an image.
+- The learned CLS attention increasingly concentrates on semantically relevant object regions.
 
 ---
 
@@ -69,13 +69,15 @@ Each test image index is 1154, 2143, 2767 respectively and each column represent
 
 ### Interpretation
 
-- Multi-crop encourages model to learn 'local to global' correspondences and it leads to retain more generalized visual features.
+- Multi-crop encourages model to learn 'local to global' correspondences and it leads to retain slightly more generalized visual features.
 
 ---
 
 ### Training conditions
 
 **Pretraining**
+
+Conditions of linear head and fine tune are same with pretraining if not mentioned.
 
 | Conditions | Pretraining |
 |---|---|
@@ -84,7 +86,7 @@ Each test image index is 1154, 2143, 2767 respectively and each column represent
 | Optimizer | AdamW |
 | Learning rate scheduler | Linear warmup + Cosine annealing |
 | Learning rate | Linear warmup to 0.0005(1-3 epoch), then cosine annealing to 0.00001(4-30 epoch) |
-| # of teachers/students | teachers: 2  students: 2 |
+| View of teacher and student | teachers: 2 global crops / students: 2 local crops |
 | Teacher temperature | 0.04 |
 | Student temperature | 0.1 |
 | Teacher momentum | 0.996 |
@@ -100,7 +102,7 @@ Each test image index is 1154, 2143, 2767 respectively and each column represent
 
 | Conditions | Linear Head |
 |---|---|
-| Dataset | STL-10 (Unlabeled) / Mini ImageNet |
+| Dataset | STL-10 (Train, Test) / Mini ImageNet |
 | Learning rate scheduler | Linear warmup + Cosine annealing |
 | Learning rate | Linear warmup to 0.0005(1-4 epoch), then cosine annealing to 0.00001(5-40 epoch) |
 | Data augmentation | Resize |
@@ -110,7 +112,7 @@ Each test image index is 1154, 2143, 2767 respectively and each column represent
 
 | Conditions | Fine Tuning |
 |---|---|
-| Dataset | STL-10 (Unlabeled) / Mini ImageNet |
+| Dataset | STL-10 (Trian, Test) / Mini ImageNet |
 | Learning rate scheduler | Linear warmup + Cosine annealing |
 | Learning rate | Linear warmup to 0.0005(1-4 epoch), then cosine annealing to 0.00001(5-40 epoch) |
 | Data augmentation | Resize |
