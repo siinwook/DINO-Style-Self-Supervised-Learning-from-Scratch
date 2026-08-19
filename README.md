@@ -12,7 +12,7 @@ It also visualizes the evolving attention map of CLS token in last encoder layer
 * Centering and Sharpening
 * Global and Local Multi-Crop Augmentation
 * Teacher Momentum Encoder
-* Exponential Moving Average Update of Centering Momentum
+* Exponential Moving Average Update of Centering
 
 ### Experiments
 
