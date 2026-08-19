@@ -115,4 +115,3 @@ Conditions of linear head and fine tune are same with pretraining if not mention
 | Dataset | STL-10 (Trian, Test) / Mini ImageNet |
 | Learning rate scheduler | Linear warmup + Cosine annealing |
 | Learning rate | Linear warmup to 0.0005(1-4 epoch), then cosine annealing to 0.00001(5-40 epoch) |
-| Data augmentation | Resize |
