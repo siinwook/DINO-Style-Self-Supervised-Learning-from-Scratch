@@ -15,6 +15,7 @@ Training conditions of experiments are indicated below
 
 ### Interpretation
 
+- DINO pretrained features can be fed as good input to simple kNN classifier.
 - Considering that the random shot accuracy of Mini ImageNet is 1%, DINO-pretrained frozen features achieve substantially higher accuracy than random chance with both k-NN and linear probing.
 - The improvement after fine-tuning on Mini-ImageNet suggests that DINO pretraining learns well generalized features that can be easily fine-tuned in transfer learning of unseen images.
 - On STL-10, frozen DINO self-supervised backbone features adopted to straightforward k-NN and linear probing achieves comparable performance to fully supervised finetuned features(45.2%, 47.7% vs 51.8%).
